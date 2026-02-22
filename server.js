@@ -10,9 +10,15 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || '*',
-    methods: ['GET', 'POST']
-  }
+    origin: '*',
+    methods: ['GET', 'POST'],
+    credentials: true,
+    allowedHeaders: ['*']
+  },
+  transports: ['websocket', 'polling'],
+  allowEIO3: true,
+  pingTimeout: 60000,
+  pingInterval: 25000
 });
 
 app.use(cors());
